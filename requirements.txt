@@ -1,0 +1,8 @@
+numpy~=2.0.2
+onnxruntime~=1.19.2
+flask~=3.1.0
+pillow~=11.0.0
+torch~=2.5.1
+torchvision~=0.20.1
+tqdm~=4.67.0
+onnx~=1.17.0

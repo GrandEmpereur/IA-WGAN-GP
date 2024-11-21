@@ -130,10 +130,13 @@ for epoch in range(NUM_EPOCHS):
 
             step += 1
 
-    # Sauvegarder les modèles après chaque epoch
-    torch.save(gen.state_dict(), os.path.join(SAVED_MODELS_DIR, f"generator_epoch_{epoch}.pth"))
-    torch.save(critic.state_dict(), os.path.join(SAVED_MODELS_DIR, f"critic_epoch_{epoch}.pth"))
-    print(f"Modèles sauvegardés pour l'epoch {epoch}")
+    # Sauvegarder un modèle unique après la dernière époque
+    if epoch == NUM_EPOCHS - 1:
+        print("Sauvegarde du modèle final...")
+        torch.save({
+            "generator": gen.state_dict(),
+            "critic": critic.state_dict(),
+        }, os.path.join(SAVED_MODELS_DIR, "wgan_gp_final.pth"))
 
     # Sauvegarder les images générées uniquement pour la dernière époque
     if epoch == NUM_EPOCHS - 1:
