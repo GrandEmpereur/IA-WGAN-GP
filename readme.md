@@ -1,7 +1,7 @@
 # **Fake vs Real Image Game**
 
-Un projet basé sur **Flask**, **ONNX**, et **Next.js** qui permet de :
-1. Générer des images à l'aide d'un modèle **WGAN-GP** converti en **ONNX**.
+Un projet basé sur **Flask**, **PyTorch**, et **Next.js** qui permet de :
+1. Générer des images à l'aide d'un modèle **WGAN-GP**.
 2. Afficher ces images sur une interface web interactive.
 3. Permettre aux utilisateurs de jouer à un jeu pour deviner si une image est réelle ou générée.
 
@@ -10,13 +10,10 @@ Un projet basé sur **Flask**, **ONNX**, et **Next.js** qui permet de :
 ## **Fonctionnalités**
 
 - **API Flask** :  
-  Fournit un endpoint pour générer des images à partir du modèle ONNX.
+  Fournit un endpoint pour générer des images à partir du modèle PyTorch.
 
 - **Interface Web** :  
   Une interface Next.js utilisant **shadcn/ui** pour afficher des images et jouer au mini-jeu.
-
-- **Support ONNX** :  
-  Les prédictions sont effectuées via **ONNX Runtime**.
 
 - **Mini-Jeu** :  
   Les utilisateurs doivent identifier les images générées par rapport aux images réelles.
@@ -25,10 +22,9 @@ Un projet basé sur **Flask**, **ONNX**, et **Next.js** qui permet de :
 
 ## **Prérequis**
 
-- **Python 3.8+**
-- **Node.js 16+**
+- **Python 3.9+**
+- **Node.js 20+**
 - **PyTorch**
-- **ONNX Runtime**
 - **Flask**
 - **Next.js**
 
@@ -46,13 +42,9 @@ cd fake-vs-real-game/backend
 pip install -r requirements.txt
 ```
 
-#### Convertir le modèle PyTorch en ONNX
+#### Convertir le modèle PyTorch
 
-Assurez-vous que votre modèle est déjà entraîné. Puis, exécutez le script suivant pour convertir votre modèle en ONNX :
-
-```bash
-python convert_to_onnx.py
-```
+Assurez-vous que votre modèle est déjà entraîné. Placez le modèle dans le dossier `saved_models/` avec le nom `wgan_gp_final.pth`.
 
 #### Lancer l'API Flask
 
@@ -85,9 +77,10 @@ L'interface sera disponible sur `http://localhost:3000`.
 
 ## **Utilisation**
 
-1. Accédez à `http://localhost:3000/generate` pour générer des images à partir de l'API Flask.
-2. Jouez au mini-jeu pour deviner si une image est "réelle" ou "générée".
-3. Les résultats sont affichés en temps réel.
+1. Accédez à `http://localhost:3000/` pour accéder à l'interface du jeu.
+2. Cliquez sur **Commencer** pour générer une image à partir de l'API Flask.
+3. Devinez si l'image est "réelle" ou "générée" en cliquant sur les boutons **Réel** ou **Généré**.
+4. Le score sera mis à jour en fonction de vos réponses.
 
 ---
 
@@ -97,8 +90,7 @@ L'interface sera disponible sur `http://localhost:3000`.
 fake-vs-real-game/
 ├── backend/                   # Backend Flask
 │   ├── app.py                 # API Flask pour la génération d'images
-│   ├── convert_to_onnx.py     # Script pour convertir le modèle PyTorch en ONNX
-│   ├── saved_models/          # Modèles PyTorch et ONNX
+│   ├── saved_models/          # Modèle PyTorch
 │   └── dataset/               # Datasets (réels et générés)
 ├── frontend/                  # Frontend Next.js
 │   ├── pages/                 # Pages Next.js
@@ -114,7 +106,7 @@ fake-vs-real-game/
 ### **API Flask**
 
 #### **POST /generate**
-Génère une image à partir du modèle ONNX.
+Génère une image à partir du modèle PyTorch.
 
 - **Requête** :
   Aucun paramètre requis.
@@ -122,7 +114,7 @@ Génère une image à partir du modèle ONNX.
 - **Réponse** :
   ```json
   {
-    "image": "base64_encoded_image"
+    "image": "data:image/png;base64,encoded_image"
   }
   ```
 
@@ -133,6 +125,7 @@ Génère une image à partir du modèle ONNX.
 - Ajouter des classements pour le mini-jeu.
 - Enregistrer les statistiques des utilisateurs (nombre de bonnes réponses, temps, etc.).
 - Étendre le support à d'autres types d'images générées.
+- Permettre une intégration avec des modèles plus récents via ONNX.
 
 ---
 
@@ -146,5 +139,3 @@ Génère une image à partir du modèle ONNX.
 ## **Licence**
 
 Ce projet est sous licence [MIT](LICENSE).
-
----
