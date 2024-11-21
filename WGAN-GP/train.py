@@ -27,7 +27,7 @@ FEATURES_CRITIC = 16
 FEATURES_GEN = 16
 CRITIC_ITERATIONS = 5
 LAMBDA_GP = 10
-git commit -m "first commit"
+
 # Dossier pour sauvegarder les images générées
 GENERATED_IMAGES_DIR = "./dataset/generated/images"
 os.makedirs(GENERATED_IMAGES_DIR, exist_ok=True)
